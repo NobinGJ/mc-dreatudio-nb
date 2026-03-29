@@ -1,0 +1,173 @@
+@font-face {
+    font-family: 'Cooper Black Local';
+    src: url('Cooper Std Black.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #050508; /* Fondo completamente oscuro para resaltar las imágenes */
+    overflow: hidden; /* Sin barras de desplazamiento */
+    font-family: sans-serif;
+}
+
+/* --- LOGOS --- */
+.studio-logo {
+    position: absolute;
+    top: 25px;
+    left: 40px;
+    height: 70px; /* Tamaño discreto a un lado */
+    z-index: 100;
+    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.8));
+    object-fit: contain;
+}
+
+.event-logo {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 140px; /* Logo del evento GRANDE e impactante en el centro */
+    z-index: 100;
+    filter: drop-shadow(0 10px 25px rgba(0,0,0,0.9));
+    object-fit: contain;
+}
+
+/* --- EFECTO DE SANGRE --- */
+.blood-flash {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 50; /* Por debajo de los logos pero encima de las imágenes */
+    opacity: 0;
+    background: radial-gradient(circle, transparent 30%, rgba(180, 0, 0, 0.4) 70%, rgba(130, 0, 0, 0.9) 100%);
+    box-shadow: inset 0 0 120px rgba(200, 0, 0, 0.7);
+    transition: opacity 1.5s cubic-bezier(0.2, 0.8, 0.2, 1); /* Se desvanece lento */
+}
+
+.blood-flash.active {
+    opacity: 1;
+    transition: opacity 0.05s ease-in; /* Aparece rapidísimo al instante */
+}
+
+/* --- INDICADOR DE DÍA --- */
+.day-indicator {
+    position: absolute;
+    top: 45px;
+    right: 50px;
+    z-index: 100;
+    font-size: 2.8rem;
+    font-weight: normal;  /* Las fuentes Cooper Black ya son pesadas, normaliza el weight asumiendo la pura fuente */
+    color: #ff2a2a; /* Rojo sangre */
+    font-family: 'Cooper Black Local', 'Cooper Black', serif; /* Prioriza el archivo TTF */
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 5px #000, 0 0 20px rgba(255, 0, 0, 0.9);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Animación de pulso cuando cambia el día */
+.day-indicator.pulse {
+    transform: scale(1.3) rotate(-3deg);
+    color: #ffffff;
+    text-shadow: 0 0 30px rgba(255, 0, 0, 1);
+}
+
+.event-logo {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 140px; /* Logo del evento GRANDE e impactante en el centro */
+    z-index: 100;
+    filter: drop-shadow(0 10px 25px rgba(0,0,0,0.9));
+    object-fit: contain;
+}
+
+
+.carousel {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1500px; /* Le da el tono 3D profundo */
+}
+
+.carousel-item {
+    position: absolute;
+    width: 85vw; /* Aumentamos el tamaño ocupado en pantalla */
+    height: 78vh; /* Lo bajamos ligeramente de 95vh para que no choque con el logo central gigante */
+    margin-top: 14vh; /* Empuja las imágenes abajo del logo del evento */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Animación muy fluida y moderna */
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), 
+                opacity 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
+                filter 0.6s ease;
+    will-change: transform, opacity;
+}
+
+.carousel-item img {
+    width: 100%; /* Forzamos a que llene el contenedor para agrandarlas */
+    height: 100%;
+    object-fit: contain; /* Evita que se deformen pero las escala al limite */
+    border-radius: 12px;
+}
+
+/* Estado de la imagen principal/central */
+.carousel-item.active {
+    transform: translateX(0) scale(1) translateZ(0);
+    opacity: 1;
+    z-index: 10;
+    cursor: default;
+    filter: brightness(1) drop-shadow(0 20px 50px rgba(0,0,0,0.8));
+}
+
+/* Estado de la imagen anterior (lado izquierdo) */
+.carousel-item.prev {
+    transform: translateX(-45vw) scale(0.6) translateZ(-100px) rotateY(15deg);
+    opacity: 0.35;
+    z-index: 5;
+    cursor: pointer;
+    filter: brightness(0.4);
+}
+
+.carousel-item.prev:hover {
+    opacity: 0.6;
+    filter: brightness(0.7);
+}
+
+/* Estado de la imagen siguiente (lado derecho) */
+.carousel-item.next {
+    transform: translateX(45vw) scale(0.6) translateZ(-100px) rotateY(-15deg);
+    opacity: 0.35;
+    z-index: 5;
+    cursor: pointer;
+    filter: brightness(0.4);
+}
+
+.carousel-item.next:hover {
+    opacity: 0.6;
+    filter: brightness(0.7);
+}
+
+/* Estados ocultos de imágenes mas allá */
+.carousel-item.hidden-left {
+    transform: translateX(-80vw) scale(0.4) translateZ(-300px);
+    opacity: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.carousel-item.hidden-right {
+    transform: translateX(80vw) scale(0.4) translateZ(-300px);
+    opacity: 0;
+    z-index: 1;
+    pointer-events: none;
+}
