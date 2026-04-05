@@ -171,3 +171,51 @@ body, html {
     z-index: 1;
     pointer-events: none;
 }
+
+/* --- TEXTO NO HAY CAMBIOS --- */
+.no-changes-text {
+    font-size: 6rem;
+    color: #ff2a2a;
+    font-family: 'Cooper Black Local', 'Cooper Black', serif;
+    text-align: center;
+    text-shadow: 0 0 30px rgba(255, 0, 0, 0.9), 4px 4px 10px #000;
+    line-height: 1.3;
+    animation: floatingText 4s ease-in-out infinite;
+}
+
+@keyframes floatingText {
+    0%, 100% { transform: translateY(0); text-shadow: 0 0 30px rgba(255, 0, 0, 0.9), 4px 4px 10px #000; }
+    50% { transform: translateY(-10px); text-shadow: 0 0 50px rgba(255, 0, 0, 1), 8px 8px 15px #000; }
+}
+
+/* --- RESPONSIVIDAD PARA CELULAR --- */
+@media (max-width: 768px) {
+    .studio-logo {
+        height: 35px;
+        top: 15px;
+        left: 15px;
+    }
+    .event-logo {
+        height: 80px;
+        top: 10px;
+    }
+    .day-indicator {
+        font-size: 1.6rem;
+        top: 20px;
+        right: 15px;
+    }
+    .carousel-item {
+        width: 90vw;
+        height: 65vh;
+        margin-top: 15vh;
+    }
+    .carousel-item.prev {
+        transform: translateX(-35vw) scale(0.7) translateZ(-50px) rotateY(10deg);
+    }
+    .carousel-item.next {
+        transform: translateX(35vw) scale(0.7) translateZ(-50px) rotateY(-10deg);
+    }
+    .no-changes-text {
+        font-size: 3.5rem;
+    }
+}
